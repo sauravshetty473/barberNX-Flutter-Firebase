@@ -1,8 +1,6 @@
-import 'dart:async';
-import 'dart:math';
-
+import 'package:barber_nx/shared/universal_timer.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 
 class FiverrAnimation extends StatefulWidget {
   const FiverrAnimation({Key? key}) : super(key: key);
@@ -12,16 +10,12 @@ class FiverrAnimation extends StatefulWidget {
 }
 
 class _FiverrAnimationState extends State<FiverrAnimation> {
-
-  late Timer _timer;               // time used to keep track of time, to trigger respective animations
   bool reset = true;               // state of the overall animation
   var mid = List.generate(16, (index) => index);    // mid stores the list of blocks ( their indices)
 
   @override
   Widget build(BuildContext context) {
-    
-
-    
+    final UniversalTimer timer = Provider.of<UniversalTimer>(context);      //on notify listeners() this build function will be called again
 
     return Scaffold(
       appBar: AppBar(
@@ -32,35 +26,9 @@ class _FiverrAnimationState extends State<FiverrAnimation> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if(reset){               // if the state is reset, or never started, then the timer is started, also the state is changed to false
-            _timer = Timer.periodic(
-                const Duration(microseconds: 112500), (timer) {      //timer ticks every 112 milliseconds
-
-              setState(() {
-                mid.removeAt(Random().nextInt(mid.length));   // randomly removing blocks
-
-                if(mid.isEmpty){       //once the 16 blocks are animated, the state is changed to true, also all other parameters are reset
-                  _timer.cancel();
-                  //mid = List.generate(16, (index) => index);
-                  //reset = true;
-                }
-
-              });
-            });
-            setState(() {
-              reset = false;
-            });
-          }
-          else{
-            setState(() {
-              _timer.cancel();
-              mid = List.generate(16, (index) => index);
-              reset = true;
-
-            });
-          }
+          timer.work();
         },
-        child: reset?const Icon(Icons.play_arrow): const Icon(Icons.pause),
+        child: timer.resetStatus?const Icon(Icons.play_arrow): const Icon(Icons.pause),
       ),
 
       body: Center(
@@ -92,10 +60,10 @@ class _FiverrAnimationState extends State<FiverrAnimation> {
                         child: AnimatedSwitcher(        // used animated switcher to animate the images, from image, to empty sized box
 
                           // you can use custom animation curves, both for switch in and out
-                          duration: const Duration(milliseconds: 500),
+                          duration: timer.fadeDuration,
 
                           // index varies from 0 to 15, depends on the item count, which is 16 here
-                          child: mid.contains(index)?Image.asset(       // the logic for alternative switching of animation
+                          child: timer.mid.contains(index)?Image.asset(       // the logic for alternative switching of animation
                               'assets/images/box/row-${(index/4).floor() + 1}-column-${index%4 +1}.jpg'
                           ):const SizedBox(),
                         )

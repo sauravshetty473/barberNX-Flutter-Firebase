@@ -1,4 +1,5 @@
-import 'package:barber_nx/shared/bshop_info.dart';
+import 'package:barber_nx/shared/change_notifiers/bshop_info.dart';
+import 'package:barber_nx/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,7 @@ class _BPExternalState extends State<BPExternal> {
               child: Container(
 
                 margin: const EdgeInsets.only(top: 500),
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: mainPadding.copyWith(top: 20, bottom: 20),
 
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(topRight: Radius.elliptical(30, 20), topLeft:  Radius.elliptical(30, 20)),
@@ -66,10 +67,6 @@ class _BPExternalState extends State<BPExternal> {
 
                 ),
                 width: double.infinity,
-
-
-
-
 
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,9 +206,9 @@ class _BPExternalState extends State<BPExternal> {
                   color: pageOffset>550?Colors.white: Colors.transparent,
                   boxShadow: [
                     BoxShadow(
-                      offset: Offset(0, 0),
+                      offset: const Offset(0, 0),
                       blurRadius: 12,
-                      color: pageOffset>550?Color.fromRGBO(0, 0, 0, 0.16): Colors.transparent
+                      color: pageOffset>550?const Color.fromRGBO(0, 0, 0, 0.16): Colors.transparent
                     )
                   ]
               ),

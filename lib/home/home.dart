@@ -1,13 +1,16 @@
 
 import 'dart:ui';
 import 'package:barber_nx/barber_profile/bp_external.dart';
+import 'package:barber_nx/shared/change_notifiers/profile_info.dart';
+import 'package:barber_nx/user_profile/up_external.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '../services/database.dart';
-import '../shared/bshop_info.dart';
+import '../shared/change_notifiers/bshop_info.dart';
+import '../shared/constants.dart';
 
 
 class Home extends StatelessWidget {
@@ -24,7 +27,7 @@ class Home extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: mainPadding.copyWith(top: 10, bottom: 10,),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -34,14 +37,27 @@ class Home extends StatelessWidget {
 
                     const Expanded(child: SizedBox()),
 
-                    Container(
-                      padding: const EdgeInsets.all(0),
-                      width: 60,
-                      height: 60,
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
 
-                      child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(30)),
-                          child: Image.asset('assets/images/pp_1.jpg', fit: BoxFit.cover,)),
+                          MaterialPageRoute(
+                              builder: (context) => UPExternal()),
+                        );
+                      },
+                      child: Hero(
+                        tag: 'pp',
+                        child: Container(
+                          padding: const EdgeInsets.all(0),
+                          width: 60,
+                          height: 60,
+
+                          child: ClipRRect(
+                              borderRadius: const BorderRadius.all(Radius.circular(30)),
+                              child: Image.asset('assets/images/pp_1.jpg', fit: BoxFit.cover,)),
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -405,11 +421,6 @@ class Home extends StatelessWidget {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
-
-
-
-
-
 
 
 
