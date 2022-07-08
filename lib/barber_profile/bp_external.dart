@@ -1,7 +1,10 @@
 import 'package:barber_nx/shared/change_notifiers/bshop_info.dart';
 import 'package:barber_nx/shared/constants.dart';
+import 'package:barber_nx/shared/gmap_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../home/home.dart';
 
 
 
@@ -95,14 +98,20 @@ class _BPExternalState extends State<BPExternal> {
 
                     const SizedBox(height: 20,),
                     
-                    SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        
-                        child: Image.network('https://developers.google.com/maps/images/landing/hero_geocoding_api_480.png', fit: BoxFit.cover,),
+
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => GmapSelector(),));
+                      },
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 200,
+
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+
+                          child: Image.network('https://developers.google.com/maps/images/landing/hero_geocoding_api_480.png', fit: BoxFit.cover,),
+                        ),
                       ),
                     ),
 

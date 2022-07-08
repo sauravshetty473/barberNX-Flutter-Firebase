@@ -1,6 +1,7 @@
 
 import 'dart:ui';
 import 'package:barber_nx/barber_profile/bp_external.dart';
+import 'package:barber_nx/services/auth.dart';
 import 'package:barber_nx/shared/change_notifiers/profile_info.dart';
 import 'package:barber_nx/user_profile/up_external.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,54 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width*0.6,
+          color: Colors.white,
+          child: Column(
+            children: [
+              TextButton(onPressed: (){
+                AuthService.signOut();
+              }, child: const Text('Log out'))
+            ],
+          ),
+        ),
+      ),
 
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black
+        ),
+
+
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+
+                MaterialPageRoute(
+                    builder: (context) => UPExternal()),
+              );
+            },
+            child: Hero(
+              tag: 'pp',
+              child: Container(
+                padding: const EdgeInsets.all(0),
+                margin: const EdgeInsets.only(right: 30),
+                width: 60,
+                height: 60,
+
+                child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                    child: Image.asset('assets/images/pp_1.jpg', fit: BoxFit.cover,)),
+              ),
+            ),
+          )
+        ],
+      ),
 
       backgroundColor: Colors.white,
 
@@ -32,35 +80,6 @@ class Home extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                Row(
-                  children: [
-
-                    const Expanded(child: SizedBox()),
-
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-
-                          MaterialPageRoute(
-                              builder: (context) => UPExternal()),
-                        );
-                      },
-                      child: Hero(
-                        tag: 'pp',
-                        child: Container(
-                          padding: const EdgeInsets.all(0),
-                          width: 60,
-                          height: 60,
-
-                          child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(30)),
-                              child: Image.asset('assets/images/pp_1.jpg', fit: BoxFit.cover,)),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
 
                 const SizedBox(height: 20,),
 

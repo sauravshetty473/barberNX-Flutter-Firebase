@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.barber_nx">
    <application
+
         android:label="barber_nx"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -30,5 +31,12 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-    </application>
+
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyA8eV8SqzwlRkEG7Oo5JjINccZ8yfwDIgA"/>
+
+       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+       <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
+   </application>
 </manifest>
